@@ -1,0 +1,110 @@
+<!--
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⵣ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+░██╗░░░░░░░██╗░█████╗░██╗░░░░░██╗██████╗░
+░██║░░██╗░░██║██╔══██╗██║░░░░░██║██╔══██╗
+░╚██╗████╗██╔╝███████║██║░░░░░██║██║░░██║
+░░████╔═████║░██╔══██║██║░░░░░██║██║░░██║
+░░╚██╔╝░╚██╔╝░██║░░██║███████╗██║██████╔╝
+░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚══════╝╚═╝╚═════╝░
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⵣ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+Y-STR Comparison Tool | February 2025
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Y-STR Comparison Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <div class="header">
+            <h1 class="text-3xl font-bold">Y-STR Comparison Tool</h1>
+            <p class="mt-2 opacity-90">Compare two sets of Y-STR markers</p>
+        </div>
+
+        <!-- Top Quick Input Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- First Set Quick Input -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4">First Set of STRs</h3>
+                <textarea 
+                    class="paste-area" 
+                    id="firstSetPaste" 
+                    placeholder="Paste tab-separated STR values here (e.g., 13 24 14 11 13-14...)"></textarea>
+                <button class="btn-primary mt-4 w-full" onclick="fillFromPaste('firstSetPaste', 'firstSetInputs')">
+                    Fill Fields
+                </button>
+            </div>
+
+            <!-- Second Set Quick Input -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4">Second Set of STRs</h3>
+                <textarea 
+                    class="paste-area" 
+                    id="secondSetPaste" 
+                    placeholder="Paste tab-separated STR values here (e.g., 13 24 14 11 13-14...)"></textarea>
+                <button class="btn-primary mt-4 w-full" onclick="fillFromPaste('secondSetPaste', 'secondSetInputs')">
+                    Fill Fields
+                </button>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-4 mb-8">
+            <button class="btn-secondary flex-1 md:flex-none" onclick="resetValues()">
+                <i class="fas fa-undo mr-2"></i>Reset All
+            </button>
+           
+            <button class="btn-secondary flex-1 md:flex-none" onclick="toggleAllPanels()">
+                <i class="fas fa-expand-alt mr-2"></i>Expand/Collapse All
+            </button>
+
+            <button class="btn-primary flex-1 md:flex-none" onclick="compareSTRs()">
+                <i class="fas fa-exchange-alt mr-2"></i>Compare STRs
+            </button>
+        </div>
+
+        
+
+        <!-- Collapsible Input Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- First Set Detailed Input -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-gray-50 p-4 cursor-pointer" onclick="toggleSection('firstSetContainer')">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold">First Set Detailed Input</h3>
+                        <i class="fas fa-chevron-down collapse-button" id="firstSetButton"></i>
+                    </div>
+                </div>
+                <div class="collapse-content" id="firstSetContainer">
+                    <div class="container" id="firstSetInputs"></div>
+                </div>
+            </div>
+
+            <!-- Second Set Detailed Input -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-gray-50 p-4 cursor-pointer" onclick="toggleSection('secondSetContainer')">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold">Second Set Detailed Input</h3>
+                        <i class="fas fa-chevron-down collapse-button" id="secondSetButton"></i>
+                    </div>
+                </div>
+                <div class="collapse-content" id="secondSetContainer">
+                    <div class="container" id="secondSetInputs"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results mt-8" id="results"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
